@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register</title>
+</head>
+<style>
+    body {
+        /*display: flex;*/
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        margin: 0;
+    }
+
+    .form-heading-register {
+        width: 300px;
+        padding: 20px;
+        border: 1px solid #ccc;
+        border-radius: 8px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin: 0 auto; /* Center the form */
+    }
+
+    /* Set a common width for labels and input fields */
+
+   .label-container,
+   .input-container {
+       width: 100%;
+       margin-bottom: 100%;
+   }
+
+       /* Adjust the width of the labels */
+    label {
+        width: 100%;
+        text-align: left;
+    }
+
+    /* Adjust the width of the input fields */
+    input {
+        width: calc(100% - 12px); /* Consider padding and border width */
+        padding: 6px; /* Match the padding for consistency */
+        margin-top: 4px; /* Adjust spacing between input fields */
+    }
+
+    .form-container {
+        width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .btn {
+        border: none;
+        outline: none;
+        border: 1px solid gray;
+        border-radius: 4px;
+        padding: 5px 15px;
+        cursor: pointer;
+    }
+
+    .btn-primary {
+        background-color: green;
+        border: 1px solid green;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: darkgreen;
+    }
+
+    .btn-danger {
+        background-color: red;
+        border: 1px solid red;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: darkred;
+    }
+
+</style>
+<body>
+<div class="header" style="display: flex;">
+    <img src="https://th.bing.com/th/id/R.0cdcf97a7b2ffbac69c068dbd060fb7d?rik=7m2f54q85W1o5w&pid=ImgRaw&r=0" width="135px">
+    <h1>CÔNG TY TNHH MTV NHẬT HUY GROUP</h1>
+</div>
+    <div class="form-heading-register">
+        <label for="firstname" id="firstname">Firstname</label>
+        <input type="text" placeholder="Enter your firstname"><br/>
+        <label for="lastname" id="lastname">Lastname</label>
+        <input type="text" placeholder="Enter your lastname"><br/>
+        <label for="email" id="email">Email</label>
+        <input type="email" placeholder="Enter your email"><br/>
+        <div class="form-container">
+            <label for="registerUsername">Username:</label>
+            <input type="text" id="registerUsername" placeholder="Enter your username">
+        </div>
+        <div class="form-container">
+            <label for="registerPassword">Password:</label>
+            <input type="password" id="registerPassword" placeholder="Enter your password">
+        </div>
+        <div class="form-container">
+            <button class="btn btn-primary" onclick="registerUser()">Login</button>
+            <button class="btn btn-danger" onclick="closeRegisterModal()">Cancel</button>
+        </div>
+    </div>
+<script>
+    const registeredUsers = [];
+
+    function registerUser() {
+        const username = document.getElementById('registerUsername').value;
+        const password = document.getElementById('registerPassword').value;
+
+        if (username && password) {
+            const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+            const isExistingUser = registeredUsers.some((user) => user.username === username);
+
+            if (isExistingUser) {
+                alert('Tên đăng nhập đã tồn tại. Vui lòng chọn tên đăng nhập khác.');
+            } else {
+                registeredUsers.push({ username, password });
+                localStorage.setItem('registeredUsers', JSON.stringify(registeredUsers));
+                alert('Đăng ký thành công! Vui lòng đăng nhập để tiếp tục.');
+                window.location.href = "Login.html";
+            }
+        } else {
+            alert('Vui lòng điền đầy đủ thông tin đăng ký.');
+        }
+    }
+
+
+
+</script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+</head>
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+    }
+
+    .header {
+        display: flex;
+        align-items: center;
+        background-color: #333;
+        color: white;
+        padding: 10px;
+    }
+
+    .header img {
+        width: 135px;
+        margin-right: 10px;
+    }
+
+    label {
+        display: block;
+        margin-bottom: 8px;
+    }
+
+    input {
+        width: 100%;
+        padding: 8px;
+        margin-bottom: 16px;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+    }
+
+    .btn {
+        border: none;
+        outline: none;
+        border: 1px solid gray;
+        border-radius: 4px;
+        padding: 5px 15px;
+    }
+
+    .btn-primary {
+        background-color: green;
+        border: 1px solid green;
+        color: white;
+    }
+
+    .btn-primary:hover {
+        background-color: darkgreen;
+        cursor: pointer;
+    }
+
+    .btn-danger {
+        background-color: red;
+        border: 1px solid red;
+        color: white;
+    }
+
+    .btn-danger:hover {
+        background-color: darkred;
+        cursor: pointer;
+    }
+
+</style>
+<body>
+<div class="header" style="display: flex;">
+    <img src="https://th.bing.com/th/id/R.0cdcf97a7b2ffbac69c068dbd060fb7d?rik=7m2f54q85W1o5w&pid=ImgRaw&r=0" width="135px">
+    <h1>CÔNG TY TNHH MTV NHẬT HUY GROUP</h1>
+</div>
+<div class="modal-container" id="loginModal">
+    <div class="form-container">
+        <label for="loginUsername">Username:</label>
+        <input type="text" id="loginUsername" placeholder="Enter your username">
+    </div>
+    <div class="form-container">
+        <label for="loginPassword">Password:</label>
+        <input type="password" id="loginPassword" placeholder="Enter your password">
+    </div>
+    <div class="form-container">
+        <button class="btn btn-primary" onclick="loginUser()">Login</button>
+        <button class="btn btn-danger" onclick="closeLoginModal()">Cancel</button>
+    </div>
+</div>
+<script>
+    const registeredUsers = [];
+    function loginUser() {
+        const username = document.getElementById('loginUsername').value;
+        const password = document.getElementById('loginPassword').value;
+
+        const registeredUsers = JSON.parse(localStorage.getItem('registeredUsers')) || [];
+
+        const user = registeredUsers.find((user) => user.username === username && user.password === password);
+
+        if (user) {
+            alert('Đăng nhập thành công!');
+            closeLoginModal();
+            localStorage.setItem('loggedInUser', JSON.stringify(user));
+            window.location.href = "qlsp.html";
+        } else {
+            console.log(username, password);
+            console.log(registeredUsers);
+            alert('Đăng nhập thất bại. Vui lòng kiểm tra tên đăng nhập và mật khẩu.');
+        }
+    }
+
+    function closeLoginModal() {
+        const loginModal = document.getElementById('loginModal');
+        if (loginModal) {
+            loginModal.style.display = 'none';
+        }
+    }
+
+</script>
+</body>
+</html>

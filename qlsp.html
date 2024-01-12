@@ -241,8 +241,7 @@
     <img src="https://th.bing.com/th/id/R.0cdcf97a7b2ffbac69c068dbd060fb7d?rik=7m2f54q85W1o5w&pid=ImgRaw&r=0" width="135px">
     <h1>CÔNG TY TNHH MTV NHẬT HUY GROUP</h1>
     <div class="auth-buttons">
-<!--        <button class="btn btn-warning" onclick="openRegisterModal()">Đăng ký</button>-->
-<!--        <button class="btn btn-danger" onclick="openLoginModal()">Đăng nhập</button>-->
+        <button class="btn btn-warning" onclick="logout()">Đăng xuất</button>
     </div>
 </div>
 <div class="container">
@@ -595,14 +594,28 @@
             alert('Vui lòng điền đầy đủ thông tin đăng ký.');
         }
     }
+    function logout() {
+        localStorage.removeItem('loggedInUser'); // Remove the user information from local storage
+        toggleAuthButtons(false); // Show the login and register buttons
+        location.href = 'login.html'; // Redirect to the login page
+    }
     function toggleAuthButtons(isLoggedIn) {
-        const authButtons = document.querySelector('.auth-buttons');
+        const authButtons = document.querySelector('.btn-warning');
         if (isLoggedIn) {
             authButtons.style.display = 'none';
         } else {
             authButtons.style.display = 'flex';
         }
     }
+    document.addEventListener('DOMContentLoaded', function() {
+        const loggedInUser = JSON.parse(localStorage.getItem('loggedInUser'));
+        toggleLogoutButton(!!loggedInUser);
+
+        const logoutButton = document.querySelector('.btn-warning');
+        logoutButton.addEventListener('click', function() {
+            logout();
+        });
+    });
 </script>
 </body>
 </html>
